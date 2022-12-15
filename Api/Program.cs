@@ -7,7 +7,8 @@ using Shared.Response;
 var builder = WebApplication.CreateBuilder(args);
 var conf = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json").Build();
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 builder.WebHost.UseUrls(conf.GetValue<string>("Host"));
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
