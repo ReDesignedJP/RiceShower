@@ -1,0 +1,49 @@
+﻿@page "/status"
+
+<PageTitle>Rice Shower - Administration Console</PageTitle>
+
+@using AdministratorConsole.Data
+@inject BackendService service;
+
+<h1>Backend-Status</h1>
+
+<p>RiceShower backend status</p>
+
+@if (status == null)
+{
+    <p><em>Fetching...</em></p>
+}
+else
+{
+    <p>Request: @status</p>
+    <table class="table">
+        @* <thead> *@
+        @*     <tr> *@
+        @*         <th>Date</th> *@
+        @*         <th>Temp. (C)</th> *@
+        @*         <th>Temp. (F)</th> *@
+        @*         <th>Summary</th> *@
+        @*     </tr> *@
+        @* </thead> *@
+        @* <tbody> *@
+        @*     @foreach (var forecast in forecasts) *@
+        @*     { *@
+        @*         <tr> *@
+        @*             <td>@forecast.Date.ToShortDateString()</td> *@
+        @*             <td>@forecast.TemperatureC</td> *@
+        @*             <td>@forecast.TemperatureF</td> *@
+        @*             <td>@forecast.Summary</td> *@
+        @*         </tr> *@
+        @*     } *@
+        @* </tbody> *@
+    </table>
+}
+
+@code {
+    private bool? status;
+
+    protected override async Task OnInitializedAsync()
+    {
+        status = await service.IsServerAvailable();
+    }
+}
